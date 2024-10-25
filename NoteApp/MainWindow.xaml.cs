@@ -10,15 +10,14 @@ namespace NoteApp
 {
     public partial class MainWindow : Window
     {
-        private readonly string filePath = "notes.txt"; // Путь к файлу для хранения заметок
+        private readonly string filePath = "notes.txt"; 
 
         public MainWindow()
         {
             InitializeComponent();
-            LoadNotes();  // Загружаем заметки при старте приложения
+            LoadNotes();  
         }
 
-        // Метод для загрузки заметок из файла
         private void LoadNotes()
         {
             if (File.Exists(filePath))
@@ -32,28 +31,23 @@ namespace NoteApp
             }
         }
 
-        // Метод для автосохранения заметок
         private void AutoSaveNotes()
         {
             File.WriteAllText(filePath, NoteTextBox.Text);
             StatusLabel.Content = "Заметки сохранены автоматически.";
         }
 
-        // Обработчик события изменения текста
         private void NoteTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            AutoSaveNotes();  // Автосохранение при каждом изменении текста
+            AutoSaveNotes();  
         }
 
-        // Экспорт заметок в PDF с использованием библиотеки iTextSharp
-        // Экспорт заметок в PDF с использованием библиотеки iTextSharp
         private void ExportToPDF_Click(object sender, RoutedEventArgs e)
         {
             string pdfPath = "notes.pdf";
 
             try
             {
-                // Используем полное имя класса Document из iTextSharp
                 iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document();
                 PdfWriter.GetInstance(pdfDoc, new FileStream(pdfPath, FileMode.Create));
                 pdfDoc.Open();
